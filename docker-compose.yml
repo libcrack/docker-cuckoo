@@ -1,0 +1,9 @@
+cuckoo:
+    build: -
+    links:
+        - db:mongo
+    ports:
+        - 8000:80
+
+db:
+    image: mongo
