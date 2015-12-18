@@ -1,19 +1,20 @@
 NAME = $(shell basename `pwd | sed -e 's|docker-||g'`)
-TAG = "libcrack/$(NAME)"
+TAG = $(shell date +%m%d)
+IMG = libcrack/$(NAME)
+PORT = 8000
 
-all: help
 
 help:
 	echo "Usage: make <build|compose|run|help>"
 
 build:
-	docker build -t $(TAG) .
+	docker build --tag=$(IMG):$(TAG) .
 
 run:
-	docker run -d -p 8000:80 --name $(NAME) $(TAG)
+	docker run -d -p $(PORT):80 --name $(NAME) $(TAG)
 
 compose:
 	docker-compose up
 
-.PHONY: all build compose help run
-.SILENT: all build compose help run
+.PHONY: help build run compose
+.SILENT: help
